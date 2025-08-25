@@ -1,2 +1,10 @@
 .idea/
 test/
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+build/
+*.log
+logs/
+.env
