@@ -40,7 +40,6 @@ def writer_to_excel(path, df, sheetname='Sheet1', startrow=1, startcol=1,
     :param close: 是否关闭工作簿
     :return: 如果close为False，返回工作簿对象
     '''
-    print('调用函数write_to_excel')
     # 在函数内导入所需模块
     try:
         import openpyxl
@@ -63,9 +62,9 @@ def writer_to_excel(path, df, sheetname='Sheet1', startrow=1, startcol=1,
 
     # 获取工作簿
     if file_exists:
-        workbook = load_workbook(path)
+        workbook = load_workbook(path,read_only = False,)
     else:
-        workbook = openpyxl.Workbook(path)#
+        workbook = openpyxl.Workbook(write_only=False)#
 
     # 获取或创建工作表
     if sheetname in workbook.sheetnames:
@@ -77,8 +76,8 @@ def writer_to_excel(path, df, sheetname='Sheet1', startrow=1, startcol=1,
                     cell.value = None
     else:
         # 如果是新工作簿且创建新工作表，删除默认的Sheet
-        if not file_exists and 'Sheet1' in workbook.sheetnames:
-            del workbook['Sheet1']
+        if not file_exists and 'Sheet' in workbook.sheetnames:
+            del workbook['Sheet']
         worksheet = workbook.create_sheet(sheetname)
 
     # 执行写入
