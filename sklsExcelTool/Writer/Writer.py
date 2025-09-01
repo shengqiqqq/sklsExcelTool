@@ -54,7 +54,7 @@ def writer_to_excel(path, df, sheetname='Sheet1', startrow=1, startcol=1,
 
     # 处理文件存在情况
     file_exists = os.path.exists(path)
-    print(file_exists)
+    #print(file_exists)
     # 如果需要覆盖现有文件，则删除它
     if file_exists and overwrite:
         os.remove(path)

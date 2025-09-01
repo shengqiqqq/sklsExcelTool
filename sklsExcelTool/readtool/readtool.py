@@ -1,4 +1,8 @@
-def to_datetime(element):   #清晰奇怪的日期格式，单个便利，可配合apply
+def to_datetime(element):   #清晰奇怪的日期格式，单个遍历，可配合apply
+    '''
+    :param element: 需要清洗的日期数据
+    :return: 清洗完的清洗数据datetime类型
+    '''
     from datetime import datetime
     if isinstance(element, datetime):
         return element

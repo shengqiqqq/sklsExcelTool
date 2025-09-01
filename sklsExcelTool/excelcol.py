@@ -13,24 +13,27 @@ class ExcelColumn:
 
         参数:
             value: 可以是列名(如"A", "B", "AA")或数字(如1, 2, 27)
+            兼容小写了
         """
         if isinstance(value, str):
             # 确保输入是有效的列名
-            if not value.isalpha() or not value.isupper():
-                raise ValueError("无效的Excel列名，必须是大写字母")
-            self.name = value
+
+            if not value.isalpha():
+                raise ValueError(f"无效的Excel列名:{value}")
+            self.name = value.upper()
             self.number = self._name_to_number(value)
         elif isinstance(value, int):
             if value <= 0:
-                raise ValueError("Excel列号必须是正数")
+                raise ValueError(f"错误的数字:{value}。Excel列号必须是正数")
             self.number = value
             self.name = self._number_to_name(value)
         else:
-            raise TypeError("值必须是字符串或整数")
+            raise TypeError(f"无效的值类型:{type(value)}。值必须是字符串或整数")
 
     def _name_to_number(self, name):
         """将列名转换为对应的数字"""
         number = 0
+        name = name.upper()
         for char in name:
             number = number * 26 + (ord(char) - ord('A') + 1)
         return number
@@ -68,7 +71,7 @@ class ExcelColumn:
             raise TypeError(f"不支持的减法操作数类型: {type(other)}")
 
         if result <= 0:
-            raise ValueError("减法结果必须是正数")
+            raise ValueError(f"不支持的算数结果:{result}。减法结果必须是正数")
         return ExcelColumn(result)
 
     def __lt__(self, other):
@@ -137,7 +140,7 @@ if __name__ == "__main__":
     a = ExcelColumn("A")
     b = ExcelColumn("B")
     z = ExcelColumn("Z")
-    aa = ExcelColumn("AA")
+    aa = ExcelColumn("aA")
 
     print(f"A = {a.number}")  # 输出: A = 1
     print(f"B = {b.number}")  # 输出: B = 2
